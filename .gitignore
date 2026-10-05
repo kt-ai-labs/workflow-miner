@@ -147,3 +147,8 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+
+# Workflow Miner local data
+.workflow-miner/
+artifacts/

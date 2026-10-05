@@ -1,0 +1,19 @@
+{
+  "name": "@kt-ai-labs/workflow-miner-provider-codex",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Codex session provider for Workflow Miner",
+  "license": "MIT",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ]
+}
