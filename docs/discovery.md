@@ -4,6 +4,32 @@ This document records competitive and technical discovery for Workflow Miner bef
 
 The goal is to reuse existing session infrastructure where it is sufficient and keep Workflow Miner focused on the missing layer: repeated-friction detection, coverage analysis, and actionable infrastructure recommendations.
 
+## Terminology: three similarly named but different surfaces
+
+This project must keep the following three things distinct:
+
+| Surface | Owner | What it is | Relevance to Workflow Miner |
+| --- | --- | --- | --- |
+| **VS Code Chat view** | Microsoft / VS Code | The agent/chat experience inside a normal editor window, alongside the currently open project/workspace. | Interactive work in one editor context. |
+| **VS Code Agents window** | Microsoft / VS Code | A separate VS Code window opened via **Open in Agents**. It is a cross-workspace session-management surface backed by the VS Code Agent Host. | This is the surface related to **Agent Host + AHP** and Discovery #1. |
+| **AgentsView** (`kenn-io/agentsview`) | Independent OSS project | A standalone local-first application/server/CLI that scans native agent histories, normalizes them, indexes them, and exposes them through UI/CLI/REST/MCP. | This is Discovery #2 and a candidate replacement for our ingestion/index/storage layer. |
+
+The **Workspace** selector in the VS Code **Agents window** is also easy to misread. It selects the **primary execution workspace for a new agent session**: the folder/project in which that session will read files, run commands, and make changes. It is **not** the global collection boundary for Workflow Miner and does not mean the Agents window only knows about sessions from that workspace.
+
+The Agents window can manage sessions across multiple workspaces. Workflow Miner may itself run from the `workflow-miner` repository while querying a broader Agent Host session catalogue and then applying its own explicit include/exclude policy.
+
+Do not confuse that VS Code window with the standalone AgentsView project. They solve related but different problems:
+
+- VS Code Agents window / Agent Host: live agent orchestration and cross-workspace session management;
+- AgentsView: historical session discovery, normalization, indexing, storage, and query.
+
+Sources:
+
+- VS Code Chat view: https://code.visualstudio.com/docs/agents/run/chat-view
+- VS Code Agents window: https://code.visualstudio.com/docs/agents/run/agents-window
+- VS Code session management: https://code.visualstudio.com/docs/agents/run/sessions/manage-sessions
+- AgentsView: https://github.com/kenn-io/agentsview
+
 ## 1. VS Code Agents, Agent Host Protocol (AHP), and OpenTelemetry
 
 **Status:** promising ingestion source; validate before building native Claude/Codex adapters.
@@ -306,7 +332,7 @@ It uses the official `@microsoft/agent-host-protocol` client together with `ws` 
 
 The AHP libraries are currently **root devDependencies**, not a workspace package dependency. This is intentional: the code is a technical spike. If the experiment validates AHP as the primary ingestion seam, it can then graduate into a real provider package.
 
-## 2. AgentsView
+## 2. AgentsView (kenn-io standalone project)
 
 **Status:** very strong candidate for the ingestion, normalization, indexing, and local-storage layer; validate its programmatic surfaces before building provider parsers.
 
