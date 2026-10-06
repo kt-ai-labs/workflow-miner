@@ -30,6 +30,26 @@ Sources:
 - VS Code session management: https://code.visualstudio.com/docs/agents/run/sessions/manage-sessions
 - AgentsView: https://github.com/kenn-io/agentsview
 
+## Current V1 environment scope
+
+For the first implementation, Workflow Miner is intentionally **VS Code-only**.
+
+The supported host boundary is:
+
+```text
+VS Code Agents window
+        ↓
+VS Code Agent Host
+        ↓
+AHP
+        ↓
+Workflow Miner
+```
+
+Do not build JetBrains, Cursor-as-an-IDE, standalone native Claude/Codex, or other IDE integrations yet. AgentsView remains an important comparative/reference implementation and possible future backend, but it is not a V1 runtime dependency while the VS Code/AHP path is being validated.
+
+This keeps the first product question narrow: can Workflow Miner turn repeated friction from VS Code-managed agent sessions into evidence-backed infrastructure recommendations without owning native provider ingestion?
+
 ## 1. VS Code Agents, Agent Host Protocol (AHP), and OpenTelemetry
 
 **Status:** promising ingestion source; validate before building native Claude/Codex adapters.
@@ -267,7 +287,7 @@ That remains Workflow Miner's differentiating layer.
 
 **Do not implement Claude and Codex native parsers yet.**
 
-Before investing in `packages/providers/claude` and `packages/providers/codex`, run a small AHP ingestion spike.
+Before investing in any native Claude/Codex ingestion, run the AHP spike and validate the VS Code-only path.
 
 The preferred architecture, if the spike succeeds, becomes:
 
@@ -279,14 +299,14 @@ VS Code Agent Host
              ↓
              AHP
              ↓
-packages/providers/ahp
+thin Workflow Miner AHP source adapter
              ↓
 Workflow Miner reduction / evidence
              ↓
 friction mining + coverage analysis
 ```
 
-Native Claude/Codex providers would then be fallback adapters for environments where AHP is unavailable or incomplete, not the primary path.
+For V1, native Claude/Codex providers are out of scope. Reconsider them only if a concrete AHP information gap blocks the VS Code workflow.
 
 ### Concrete validation spike
 

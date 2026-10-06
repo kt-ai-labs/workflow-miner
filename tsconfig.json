@@ -1,7 +1,7 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./packages/providers/claude" },
-    { "path": "./packages/providers/codex" }
-  ]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["discovery/**/*.ts"]
 }

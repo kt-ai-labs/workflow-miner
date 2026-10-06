@@ -5,15 +5,12 @@
   "description": "Mine AI coding sessions for recurring workflow friction and turn it into actionable automation",
   "license": "MIT",
   "type": "module",
-  "workspaces": [
-    "packages/providers/*"
-  ],
   "scripts": {
-    "build": "rimraf ./packages/providers/*/dist && tsc --build",
+    "build": "tsc --noEmit",
     "build:release": "npm run build",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
-    "check": "tsc --build",
+    "check": "tsc --noEmit",
     "test": "vitest run --run",
     "coverage": "vitest run --coverage",
     "discovery:ahp": "tsx discovery/ahp-sessions.ts",
@@ -33,7 +30,6 @@
     "globals": "^17.12.0",
     "prettier": "^3.9.9",
     "publint": "^0.3.24",
-    "rimraf": "^6.1.3",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.0",
