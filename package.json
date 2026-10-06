@@ -1,0 +1,42 @@
+{
+  "name": "@kt-ai-labs/workflow-miner",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Mine AI coding sessions for recurring workflow friction and turn it into actionable automation",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "build:release": "npm run build",
+    "format": "prettier --write .",
+    "lint": "prettier --check . && eslint .",
+    "check": "tsc --noEmit",
+    "test": "vitest run --run",
+    "coverage": "vitest run --coverage",
+    "discovery:ahp": "tsx discovery/ahp-sessions.ts",
+    "changeset:version": "changeset version && npm install && git add --all",
+    "changeset:publish": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@eslint/compat": "^2.1.1",
+    "@eslint/js": "^10.0.1",
+    "@microsoft/agent-host-protocol": "^1.0.0",
+    "@types/node": "^26.6.3",
+    "@types/ws": "^8.18.2",
+    "@vitest/coverage-v8": "^5.0.3",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "publint": "^0.3.24",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.0",
+    "ws": "^8.22.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
